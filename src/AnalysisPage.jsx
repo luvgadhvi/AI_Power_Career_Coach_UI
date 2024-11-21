@@ -27,23 +27,11 @@ import { useLocation, useNavigate } from "react-router-dom";
 const AnalysisPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { skillMatch, missingSkills, suggestions } = location.state;
+  const { missingSkills, suggestions, skillMatch, mockInterviewQuestions, formattingTips } = location.state;
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // Default Tips
-  const [formattingTips, setFormattingTips] = useState({
-    do: [
-      "Use a professional font like Arial or Times New Roman.",
-      "Keep your resume to one page if possible.",
-      "Highlight achievements with measurable results.",
-    ],
-    dont: [
-      "Avoid using bright colors or fancy designs.",
-      "Don’t include irrelevant personal details.",
-      "Avoid spelling or grammatical errors.",
-    ],
-  });
+
 
   // Open Modal
   const handleOpenModal = () => {
@@ -165,7 +153,7 @@ const AnalysisPage = () => {
             color: "#1976d2",
             padding: "10px 20px",
           }}
-          onClick={() => navigate("/mock-interview")}
+          onClick={() => navigate("/mock-interview", { state: mockInterviewQuestions })}
         >
           Start Mock Interview
         </Button>

@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { Box, Typography, TextField, Button, Dialog, DialogTitle, DialogContent, DialogActions, List, ListItem, ListItemText, IconButton } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,useLocation } from "react-router-dom";
 
 const MockInterview = () => {
     const navigate = useNavigate();
+    const location = useLocation();
     const questions = [
         "Tell me about yourself.",
         "Why do you want this job?",
@@ -17,7 +18,8 @@ const MockInterview = () => {
         "How do you handle conflict at work?",
         "What are your salary expectations?",
     ];
-
+    const   mockInterviewQuestions  = location.state;
+    console.log(mockInterviewQuestions)
     const [answers, setAnswers] = useState(Array(questions.length).fill(""));
     const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -54,7 +56,7 @@ const MockInterview = () => {
                 Mock Interview
             </Typography>
 
-            {questions.map((question, index) => (
+            {mockInterviewQuestions.map((question, index) => (
                 <Box key={index} sx={{ marginBottom: "20px" }}>
                     <Typography variant="h6" sx={{ marginBottom: "10px" }}>
                         {index + 1}. {question}

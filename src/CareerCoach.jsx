@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Box, Button, Typography } from "@mui/material";
 import { useDropzone } from "react-dropzone";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const CareerCoach = () => {
   const [files, setFiles] = useState([]);
@@ -16,25 +17,27 @@ const CareerCoach = () => {
     },
   });
 
-  const handleAnalyze = () => {
+  const handleAnalyze = async () => {
     if (files.length === 0 || !jobDescription) {
       alert("Please upload a resume and provide a job description.");
       return;
     }
 
-    // Simulated API Response
-    const staticData = {
-      skillMatch: 80,
-      missingSkills: ["Python", "Data Analysis", "Leadership"],
-      suggestions: [
-        "Add Python to your resume as it's required in the job description.",
-        "Consider taking a data analysis course.",
-        "Highlight leadership examples in your resume.",
-      ],
-    };
+    const formData = new FormData();
+    formData.append("file", files); // Add the file
+    formData.append("job_post", jobDescription);
+    const response = await axios.post("https://f53f-198-169-126-50.ngrok-free.app/analyze", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data", // Required for FormData
+      },
+    });
 
-    // Navigate to the AnalysisPage with static data
-    navigate("/analysis", { state: staticData });
+    // Handle success
+    // setResponse(response.data);
+    // console.log("Response:", response.data);
+    console.log(JSON.parse(response.data))
+
+    navigate("/analysis", { state: JSON.parse(response.data) });
   };
 
   return (
