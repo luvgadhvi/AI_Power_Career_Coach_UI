@@ -5,6 +5,7 @@ import ContactUs from "./ContactUs";
 import CareerCoach from "./CareerCoach";
 import AnalysisPage from "./AnalysisPage";
 import Layout from "./Layout";
+import MockInterview from './MockInterview'
 
 const App = () => {
   return (
@@ -47,6 +48,14 @@ const App = () => {
           element={
             <Layout>
               <AnalysisPage />
+            </Layout>
+          }
+        />
+          <Route
+          path="/mock-interview"
+          element={
+            <Layout>
+              <MockInterview />
             </Layout>
           }
         />

@@ -35,6 +35,9 @@ const apiService = {
   },
 
   // Add more API methods as needed
+  fetchFormattingTips() {
+    return apiClient.get("/formatting-tips");
+  },
 };
 
 export default apiService;
